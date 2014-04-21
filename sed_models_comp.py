@@ -26,7 +26,6 @@ for model in z20_nod:
     if model.agegyr > 1.9 and model.agegyr < 2.1:
          z20_nod_200 = model.flux
 
-plt.plot(wave, z13_nod_020, linestyle='--')
 z20_agb = fsps.readspec("/Users/alexawork/fsps/OUTPUTS/z20_agb_SSP.out.spec")
 for model in z20_agb:
     if model.agegyr == 0.2:
