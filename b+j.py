@@ -41,6 +41,8 @@ lirac2 = lirac2 - amu
 irac3 = irac3 - amu
 irac4 = irac4 - amu
 
+xlabel = ['', -1.5, -1.0, -0.5, 0.0, '']
+
 # The NIR and MIR colors
 ax2 = plt.subplot(2, 3, 2)
 ax2.errorbar(totmet, twomk - lirac1, yerr=lirac1_err + twomk_err,
@@ -48,6 +50,7 @@ ax2.errorbar(totmet, twomk - lirac1, yerr=lirac1_err + twomk_err,
 plt.xlim(-2.0, 0.5)
 plt.ylim(-0.4, 0.7)
 plt.ylabel('Ks - [3.6]', fontsize=16)
+ax2.set_xticklabels(xlabel, minor=False)
 
 ax3 = plt.subplot(2, 3, 3)
 ax3.errorbar(totmet, irac1 - irac2, yerr=irac1_err + irac4_err,
@@ -55,6 +58,7 @@ ax3.errorbar(totmet, irac1 - irac2, yerr=irac1_err + irac4_err,
 plt.xlim(-2.0, 0.5)
 plt.ylim(-0.2, 0.3)
 plt.ylabel('[3.6] - [4.5]', fontsize=16)
+ax3.set_xticklabels(xlabel, minor=False)
 
 ax5 = plt.subplot(2, 3, 5)
 ax5.errorbar(totmet, irac2 - irac3, yerr=irac2_err + irac3_err,
@@ -63,6 +67,7 @@ plt.xlim(-2.0, 0.5)
 plt.ylim(-0.1, 0.5)
 plt.xlabel('Metallicity [M/H]', fontsize=16)
 plt.ylabel('[4.5] - [5.8]', fontsize=16)
+ax5.set_xticklabels(xlabel, minor=False)
 
 ax6 = plt.subplot(2, 3, 6)
 ax6.errorbar(totmet, irac3 - irac4, yerr=irac3_err + irac4_err,
@@ -70,6 +75,7 @@ ax6.errorbar(totmet, irac3 - irac4, yerr=irac3_err + irac4_err,
 plt.xlim(-2.0, 0.5)
 plt.ylim(-0.2, 0.6)
 plt.ylabel('[5.8] - [8.0]', fontsize=16)
+ax6.set_xticklabels(xlabel, minor=False)
 
 # The optical and NIR colors
 matched = Table.read('matched_catalog.txt', format='ascii.commented_header')
@@ -90,6 +96,7 @@ ax1.errorbar(totmet, vmag - irac1, yerr=matched['err2'] + matched['err4'],
 plt.xlim(-2.0, 0.5)
 plt.ylim(1.0,  4.0)
 plt.ylabel('V - [3.6]', fontsize=16)
+ax1.set_xticklabels(xlabel, minor=False)
 
 ax4 = plt.subplot(2, 3, 4)
 ax4.errorbar(totmet, vmag - irac2, yerr=matched['err3'] + matched['err4'],
@@ -97,6 +104,7 @@ ax4.errorbar(totmet, vmag - irac2, yerr=matched['err3'] + matched['err4'],
 plt.xlim(-2.0, 0.5)
 plt.ylim(1.0,  4.0)
 plt.ylabel('V - [4.5]', fontsize=16)
+ax4.set_xticklabels(xlabel, minor=False)
 
 plt.tight_layout()
 plt.show()
