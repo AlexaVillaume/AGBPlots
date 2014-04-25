@@ -43,24 +43,33 @@ irac4 = irac4 - amu
 
 # The NIR and MIR colors
 ax2 = plt.subplot(2, 3, 2)
-ax2.errorbar(totmet, twomk - lirac1, yerr=lirac1_err + twomk_err, linestyle='none', marker='o')
+ax2.errorbar(totmet, twomk - lirac1, yerr=lirac1_err + twomk_err,
+             linestyle='none', marker='o', color='#424242')
 plt.xlim(-2.0, 0.5)
 plt.ylim(-0.4, 0.7)
+plt.ylabel('Ks - [3.6]', fontsize=16)
 
 ax3 = plt.subplot(2, 3, 3)
-ax3.errorbar(totmet, irac1 - irac2, yerr=irac1_err + irac4_err, linestyle='none', marker='o')
+ax3.errorbar(totmet, irac1 - irac2, yerr=irac1_err + irac4_err,
+             linestyle='none', marker='o',  color='#424242')
 plt.xlim(-2.0, 0.5)
 plt.ylim(-0.2, 0.3)
+plt.ylabel('[3.6] - [4.5]', fontsize=16)
 
 ax5 = plt.subplot(2, 3, 5)
-ax5.errorbar(totmet, irac2 - irac3, yerr=irac2_err + irac3_err, linestyle='none', marker='o')
+ax5.errorbar(totmet, irac2 - irac3, yerr=irac2_err + irac3_err,
+             linestyle='none', marker='o', color='#424242')
 plt.xlim(-2.0, 0.5)
 plt.ylim(-0.1, 0.5)
+plt.xlabel('Metallicity [M/H]', fontsize=16)
+plt.ylabel('[4.5] - [5.8]', fontsize=16)
 
 ax6 = plt.subplot(2, 3, 6)
-ax6.errorbar(totmet, irac3 - irac4, yerr=irac3_err + irac4_err, linestyle='none', marker='o')
+ax6.errorbar(totmet, irac3 - irac4, yerr=irac3_err + irac4_err,
+             linestyle='none', marker='o', color='#424242')
 plt.xlim(-2.0, 0.5)
 plt.ylim(-0.2, 0.6)
+plt.ylabel('[5.8] - [8.0]', fontsize=16)
 
 # The optical and NIR colors
 matched = Table.read('matched_catalog.txt', format='ascii.commented_header')
@@ -77,15 +86,17 @@ irac2 = matched['irac2'] - amu
 
 ax1 = plt.subplot(2, 3, 1)
 ax1.errorbar(totmet, vmag - irac1, yerr=matched['err2'] + matched['err4'],
-             linestyle='none', marker='o')
+             linestyle='none', marker='o', color='#424242')
 plt.xlim(-2.0, 0.5)
 plt.ylim(1.0,  4.0)
+plt.ylabel('V - [3.6]', fontsize=16)
 
 ax4 = plt.subplot(2, 3, 4)
 ax4.errorbar(totmet, vmag - irac2, yerr=matched['err3'] + matched['err4'],
-             linestyle='none', marker='o')
+             linestyle='none', marker='o', color='#424242')
 plt.xlim(-2.0, 0.5)
 plt.ylim(1.0,  4.0)
+plt.ylabel('V - [4.5]', fontsize=16)
 
 plt.tight_layout()
 plt.show()
