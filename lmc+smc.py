@@ -30,30 +30,32 @@ def plotcmd(x, y, bins, levels, x1, x2, y1, y2, ax):
 # Read in models
 path = '/Users/alexawork/fsps/OUTPUTS/COLORMAG/'
 with open(path + 'SMC/SSP.out.cmd_agb_z13_newgrid', "r") as f:
-    models = map(lambda line: fsps.readmags(line), f)
+    models = map(lambda line: fsps.readcmd(line), f)
 smc_agb_78 =[]
 smc_agb_88 =[]
 smc_agb_98 =[]
 for model in models:
-    if model.agegyr > 0.062 and model.agegyr < 0.064:
-        smc_agb_78.append(model)
-    if model.agegyr > 0.62 and model.agegyr < 0.64:
-        smc_agb_88.append(model)
-    if model.agegyr > 6.2 and model.agegyr < 6.4:
-        smc_agb_98.append(model)
+    if model.phase != 6.0:
+        if model.agegyr > 0.062 and model.agegyr < 0.064:
+            smc_agb_78.append(model)
+        if model.agegyr > 0.62 and model.agegyr < 0.64:
+            smc_agb_88.append(model)
+        if model.agegyr > 6.2 and model.agegyr < 6.4:
+            smc_agb_98.append(model)
 
 with open(path + 'SMC/SSP.out.cmd_nod_z13_newgrid', "r") as f:
-    models = map(lambda line: fsps.readmags(line), f)
+    models = map(lambda line: fsps.readcmd(line), f)
 smc_nod_78 =[]
 smc_nod_88 =[]
 smc_nod_98 =[]
 for model in models:
-    if model.agegyr > 0.062 and model.agegyr < 0.064:
-        smc_nod_78.append(model)
-    if model.agegyr > 0.62 and model.agegyr < 0.64:
-        smc_nod_88.append(model)
-    if model.agegyr > 6.2 and model.agegyr < 6.4:
-        smc_nod_98.append(model)
+    if model.phase != 6.0:
+        if model.agegyr > 0.062 and model.agegyr < 0.064:
+            smc_nod_78.append(model)
+        if model.agegyr > 0.62 and model.agegyr < 0.64:
+            smc_nod_88.append(model)
+        if model.agegyr > 6.2 and model.agegyr < 6.4:
+            smc_nod_98.append(model)
 
 smc_distmod = 19.05
 smc_nod_78_twom_j = map(lambda source: source.TWOMASS_J + smc_distmod, smc_nod_78)
@@ -83,9 +85,6 @@ smc_agb_98_irac_4 = map(lambda source: source.IRAC4 + smc_distmod, smc_agb_98)
 smc_color1_nod_78 = []
 smc_color1_nod_88 = []
 smc_color1_nod_98 = []
-smc_color1_agb_78 = []
-smc_color1_agb_88 = []
-smc_color1_agb_98 = []
 for i in range(len(smc_nod_78_irac_1)):
     smc_color1_nod_78.append(smc_nod_78_irac_1[i] - smc_nod_78_irac_4[i])
 for i in range(len(smc_nod_88_irac_1)):
@@ -93,6 +92,9 @@ for i in range(len(smc_nod_88_irac_1)):
 for i in range(len(smc_nod_98_irac_1)):
     smc_color1_nod_98.append(smc_nod_98_irac_1[i] - smc_nod_98_irac_4[i])
 
+smc_color1_agb_78 = []
+smc_color1_agb_88 = []
+smc_color1_agb_98 = []
 for i in range(len(smc_agb_78_irac_1)):
     smc_color1_agb_78.append(smc_agb_78_irac_1[i] - smc_agb_78_irac_4[i])
 for i in range(len(smc_agb_88_irac_1)):
@@ -113,8 +115,8 @@ for i in xrange(4):
     for j in xrange(3):
         ax = plt.Subplot(fig, inner_grid[j])
         if i == 0:
-            plotcmd(smc_cmd1[:,0]-smc_cmd1[:,1], smc_cmd1[:,1], bins, levels,
-                    -1, 2, 13, 4, ax)
+            #plotcmd(smc_cmd1[:,0]-smc_cmd1[:,1], smc_cmd1[:,1], bins, levels,
+            #        -1, 2, 13, 4, ax)
             if j == 0:
                 ax.plot(smc_color1_nod_78, smc_nod_78_irac_4, linewidth=2,
                         color='#0066ff')
