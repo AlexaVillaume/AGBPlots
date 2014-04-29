@@ -3,12 +3,13 @@ from itertools import product
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 from matplotlib import cm
+from matplotlib.ticker import MultipleLocator
 import sys
 
 import phot_utils
 import FSPSFiles as fsps
 
-fig = plt.figure(figsize=(11, 10))
+fig = plt.figure(figsize=(11, 8))
 
 # Set histogram characteristics
 levels = [2, 8, 32, 64, 128, 256, 512]
@@ -130,7 +131,7 @@ smc_cmd2 = np.loadtxt('smc_irac1twomj.phot')
 
 x = 0.1
 y = 0.95
-outer_grid = gridspec.GridSpec(2, 2, wspace=0.1, hspace=0.1)
+outer_grid = gridspec.GridSpec(2, 2, wspace=0.2, hspace=0.2)
 for i in xrange(4):
     inner_grid = gridspec.GridSpecFromSubplotSpec(1, 3,
                  subplot_spec=outer_grid[i], wspace=0.0, hspace=0.0)
@@ -139,6 +140,8 @@ for i in xrange(4):
         if i == 0:
             plotcmd(smc_cmd1[:,0]-smc_cmd1[:,1], smc_cmd1[:,1], bins, levels,
                     -1, 2, 13, 4, ax)
+            majorLocator   = MultipleLocator(1.5)
+            ax.xaxis.set_major_locator(majorLocator)
             if j == 0:
                 ax.plot(smc_color1_agb_78, smc_agb_78_irac_4, linewidth=2,
                         color='#ff536d')
@@ -155,6 +158,7 @@ for i in xrange(4):
                 ax.set_xlabel("[3.6] - [8.0]", fontsize=16)
                 ax.text(x, y, "log(age) = 8.8", transform=ax.transAxes,
                         verticalalignment='top', fontsize=10)
+                ax.set_yticks([])
             if j == 2:
                 ax.plot(smc_color1_agb_98, smc_agb_98_irac_4, linewidth=2,
                         color='#ff536d')
@@ -162,10 +166,13 @@ for i in xrange(4):
                         color='#0066ff')
                 ax.text(x, y, "log(age) = 9.8", transform=ax.transAxes,
                         verticalalignment='top', fontsize=10)
+                ax.set_yticks([])
 
         if i == 1:
             plotcmd(smc_cmd2[:,1]-smc_cmd2[:,0], smc_cmd2[:,0], bins, levels,
                     -1, 6, 13, 5, ax)
+            majorLocator   = MultipleLocator(2.5)
+            ax.xaxis.set_major_locator(majorLocator)
             if j == 0:
                 ax.plot(smc_color2_agb_78, smc_agb_78_irac_1, linewidth=2,
                         color='#ff536d')
@@ -182,6 +189,7 @@ for i in xrange(4):
                 ax.set_xlabel("j - [3.6]", fontsize=16)
                 ax.text(x, y, "log(age) = 8.8", transform=ax.transAxes,
                         verticalalignment='top', fontsize=10)
+                ax.set_yticks([])
             if j == 2:
                 ax.plot(smc_color2_agb_98, smc_agb_98_irac_1, linewidth=2,
                         color='#ff536d')
@@ -189,12 +197,13 @@ for i in xrange(4):
                         color='#0066ff')
                 ax.text(x, y, "log(age) = 8.8", transform=ax.transAxes,
                         verticalalignment='top', fontsize=10)
+                ax.set_yticks([])
         #if i == 2:
         #    ax.plot(lmc_cmd1[:,0]-lmc_cmd1[:,1], lmc_cmd1[:,1], linestyle='none', marker=',')
         #if i == 3:
         #    ax.plot(lmc_cmd2[:,0]-lmc_cmd2[:,1], lmc_cmd2[:,1], linestyle='none', marker=',')
-        ax.set_xticks([])
-        ax.set_yticks([])
+        #ax.set_xticks([])
+        #ax.set_yticks([])
         fig.add_subplot(ax)
 
 all_axes = fig.get_axes()
