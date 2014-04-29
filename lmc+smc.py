@@ -92,6 +92,16 @@ for i in range(len(smc_nod_88_irac_1)):
 for i in range(len(smc_nod_98_irac_1)):
     smc_color1_nod_98.append(smc_nod_98_irac_1[i] - smc_nod_98_irac_4[i])
 
+smc_color2_nod_78 = []
+smc_color2_nod_88 = []
+smc_color2_nod_98 = []
+for i in range(len(smc_nod_78_irac_4)):
+    smc_color2_nod_78.append(smc_nod_78_twom_j[i] - smc_nod_78_irac_1[i])
+for i in range(len(smc_nod_88_irac_4)):
+    smc_color2_nod_88.append(smc_nod_88_twom_j[i] - smc_nod_88_irac_1[i])
+for i in range(len(smc_nod_98_irac_4)):
+    smc_color2_nod_98.append(smc_nod_98_twom_j[i] - smc_nod_98_irac_1[i])
+
 smc_color1_agb_78 = []
 smc_color1_agb_88 = []
 smc_color1_agb_98 = []
@@ -102,39 +112,83 @@ for i in range(len(smc_agb_88_irac_1)):
 for i in range(len(smc_agb_98_irac_1)):
     smc_color1_agb_98.append(smc_agb_98_irac_1[i] - smc_agb_98_irac_4[i])
 
+smc_color2_agb_78 = []
+smc_color2_agb_88 = []
+smc_color2_agb_98 = []
+for i in range(len(smc_agb_78_irac_4)):
+    smc_color2_agb_78.append(smc_agb_78_twom_j[i] - smc_agb_78_irac_1[i])
+for i in range(len(smc_agb_88_irac_4)):
+    smc_color2_agb_88.append(smc_agb_88_twom_j[i] - smc_agb_88_irac_1[i])
+for i in range(len(smc_agb_98_irac_4)):
+    smc_color2_agb_98.append(smc_agb_98_twom_j[i] - smc_agb_98_irac_1[i])
+
 # Read in data
 smc_cmd1 = np.loadtxt('smc_irac1irac4.phot')
 smc_cmd2 = np.loadtxt('smc_irac1twomj.phot')
 #lmc_cmd1 = np.loadtxt('lmc_irac1irac3.phot')
 #lmc_cmd2 = np.loadtxt('lmc_irac1twomj.phot')
 
-outer_grid = gridspec.GridSpec(2, 2, wspace=0.05, hspace=0.05)
+x = 0.1
+y = 0.95
+outer_grid = gridspec.GridSpec(2, 2, wspace=0.1, hspace=0.1)
 for i in xrange(4):
     inner_grid = gridspec.GridSpecFromSubplotSpec(1, 3,
                  subplot_spec=outer_grid[i], wspace=0.0, hspace=0.0)
     for j in xrange(3):
         ax = plt.Subplot(fig, inner_grid[j])
         if i == 0:
-            #plotcmd(smc_cmd1[:,0]-smc_cmd1[:,1], smc_cmd1[:,1], bins, levels,
-            #        -1, 2, 13, 4, ax)
+            plotcmd(smc_cmd1[:,0]-smc_cmd1[:,1], smc_cmd1[:,1], bins, levels,
+                    -1, 2, 13, 4, ax)
             if j == 0:
-                ax.plot(smc_color1_nod_78, smc_nod_78_irac_4, linewidth=2,
-                        color='#0066ff')
                 ax.plot(smc_color1_agb_78, smc_agb_78_irac_4, linewidth=2,
                         color='#ff536d')
-            if j == 1:
-                ax.plot(smc_color1_nod_88, smc_nod_88_irac_4, linewidth=2,
+                ax.plot(smc_color1_nod_78, smc_nod_78_irac_4, linewidth=2,
                         color='#0066ff')
+                ax.set_ylabel("[8.0]", fontsize=16)
+                ax.text(x, y, "log(age) = 7.8", transform=ax.transAxes,
+                        verticalalignment='top', fontsize=10)
+            if j == 1:
                 ax.plot(smc_color1_agb_88, smc_agb_88_irac_4, linewidth=2,
                         color='#ff536d')
-            if j == 3:
-                ax.plot(smc_color1_nod_98, smc_nod_98_irac_4, linewidth=2,
+                ax.plot(smc_color1_nod_88, smc_nod_88_irac_4, linewidth=2,
                         color='#0066ff')
+                ax.set_xlabel("[3.6] - [8.0]", fontsize=16)
+                ax.text(x, y, "log(age) = 8.8", transform=ax.transAxes,
+                        verticalalignment='top', fontsize=10)
+            if j == 2:
                 ax.plot(smc_color1_agb_98, smc_agb_98_irac_4, linewidth=2,
                         color='#ff536d')
+                ax.plot(smc_color1_nod_98, smc_nod_98_irac_4, linewidth=2,
+                        color='#0066ff')
+                ax.text(x, y, "log(age) = 9.8", transform=ax.transAxes,
+                        verticalalignment='top', fontsize=10)
+
         if i == 1:
-            plotcmd(smc_cmd2[:,0]-smc_cmd2[:,1], smc_cmd2[:,1], bins, levels,
-                    -2, 3, 13, 7, ax)
+            plotcmd(smc_cmd2[:,1]-smc_cmd2[:,0], smc_cmd2[:,0], bins, levels,
+                    -1, 6, 13, 5, ax)
+            if j == 0:
+                ax.plot(smc_color2_agb_78, smc_agb_78_irac_1, linewidth=2,
+                        color='#ff536d')
+                ax.plot(smc_color2_nod_78, smc_nod_78_irac_1, linewidth=2,
+                        color='#0066ff')
+                ax.set_ylabel("[3.6]", fontsize=16)
+                ax.text(x, y, "log(age) = 7.8", transform=ax.transAxes,
+                        verticalalignment='top', fontsize=10)
+            if j == 1:
+                ax.plot(smc_color2_agb_88, smc_agb_88_irac_1, linewidth=2,
+                        color='#ff536d')
+                ax.plot(smc_color2_nod_88, smc_nod_88_irac_1, linewidth=2,
+                        color='#0066ff')
+                ax.set_xlabel("j - [3.6]", fontsize=16)
+                ax.text(x, y, "log(age) = 8.8", transform=ax.transAxes,
+                        verticalalignment='top', fontsize=10)
+            if j == 2:
+                ax.plot(smc_color2_agb_98, smc_agb_98_irac_1, linewidth=2,
+                        color='#ff536d')
+                ax.plot(smc_color2_nod_98, smc_nod_98_irac_1, linewidth=2,
+                        color='#0066ff')
+                ax.text(x, y, "log(age) = 8.8", transform=ax.transAxes,
+                        verticalalignment='top', fontsize=10)
         #if i == 2:
         #    ax.plot(lmc_cmd1[:,0]-lmc_cmd1[:,1], lmc_cmd1[:,1], linestyle='none', marker=',')
         #if i == 3:
