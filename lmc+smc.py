@@ -13,9 +13,9 @@ fig = plt.figure(figsize=(11, 8))
 
 # Set histogram characteristics
 levels = [2, 8, 32, 64, 128, 256, 512]
-bins   = 70
+bins   = 85
 cmap   = cm.gray
-cmap.set_gamma(0.075)
+cmap.set_gamma(0.04)
 
 def plotcmd(x, y, bins, levels, x1, x2, y1, y2, ax):
     # Make 2D histrogram of x and y data
@@ -220,8 +220,8 @@ for i in range(len(lmc_agb_99_irac_4)):
 # Read in data
 smc_cmd1 = np.loadtxt('smc_irac1irac4.phot')
 smc_cmd2 = np.loadtxt('smc_irac1twomj.phot')
-#lmc_cmd1 = np.loadtxt('lmc_irac1irac3.phot')
-#lmc_cmd2 = np.loadtxt('lmc_irac1twomj.phot')
+lmc_cmd1 = np.loadtxt('lmc_irac1irac4.phot')
+lmc_cmd2 = np.loadtxt('lmc_irac1twomj.phot')
 
 x = 0.1
 y = 0.95
@@ -293,11 +293,10 @@ for i in xrange(4):
                         verticalalignment='top', fontsize=10)
                 ax.set_yticks([])
         if i == 2:
-        #    ax.plot(lmc_cmd1[:,0]-lmc_cmd1[:,1], lmc_cmd1[:,1], linestyle='none', marker=',')
+            plotcmd(lmc_cmd1[:,0]-lmc_cmd1[:,1], lmc_cmd1[:,1], bins, levels,
+                    -1, 5, 13, 2, ax)
             majorLocator   = MultipleLocator(3)
             ax.xaxis.set_major_locator(majorLocator)
-            ax.set_xlim(-1, 5)
-            ax.set_ylim(13, 2)
             if j == 0:
                 ax.plot(lmc_color1_agb_78, lmc_agb_79_irac_4, linewidth=2,
                         color='#ff536d')
@@ -324,11 +323,10 @@ for i in xrange(4):
                         verticalalignment='top', fontsize=10)
                 ax.set_yticks([])
         if i == 3:
+            plotcmd(lmc_cmd2[:,0]-lmc_cmd2[:,1], lmc_cmd2[:,1], bins, levels,
+                    -1, 7, 13, 5, ax)
             majorLocator   = MultipleLocator(2.5)
             ax.xaxis.set_major_locator(majorLocator)
-            ax.set_xlim(-1, 7)
-            ax.set_ylim(13, 5)
-        #    ax.plot(lmc_cmd2[:,0]-lmc_cmd2[:,1], lmc_cmd2[:,1], linestyle='none', marker=',')
             if j == 0:
                 ax.plot(lmc_color2_agb_78, lmc_agb_79_irac_1, linewidth=2,
                         color='#ff536d')
@@ -354,7 +352,6 @@ for i in xrange(4):
                 ax.text(x, y, "log(age) = 9.9", transform=ax.transAxes,
                         verticalalignment='top', fontsize=10)
                 ax.set_yticks([])
-        #    ax.plot(lmc_cmd2[:,0]-lmc_cmd2[:,1], lmc_cmd2[:,1], linestyle='none', marker=',')
         fig.add_subplot(ax)
 
 all_axes = fig.get_axes()
@@ -371,6 +368,7 @@ for ax in all_axes:
             ax.spines['left'].set_visible(True)
         if ax.is_last_col():
             ax.spines['right'].set_visible(True)
+
 
 plt.show()
 
